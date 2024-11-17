@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNIFIED QUERY INTERFACE</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/icon">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/terminalStyle.css') }}">
+</head>
+
+<body>
+  <div class="terminal" id="terminal">
+    <div class="output" id="output"></div>
+    <div class="input-line">
+      <span class="prompt">>>  </span>
+      <input type="text" class="input" id="input" autofocus>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/terminalScript.js') }}"></script>
+</body>
+
+</html>
