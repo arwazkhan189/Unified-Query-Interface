@@ -55,7 +55,7 @@ def handle_command():
         else:
             db_name = parts[3]
             collection_name = parts[4] if len(parts) > 4 else None
-    
+
             try:
                 # Check if the database already exists
                 existing_databases = mongo_client.list_database_names()
@@ -83,6 +83,19 @@ def handle_command():
             except Exception as e:
                 response = f"Error in MongoDB operation: {str(e)}"
 
+            
+    elif command == 'display databases':
+        try:
+            # Connect to MySQL and show all databases
+            cursor = mysql.connection.cursor()
+            cursor.execute("SHOW DATABASES")
+            databases = cursor.fetchall()
+            response = "Databases:\n" + "\n".join([db[0] for db in databases])
+        except Exception as e:
+            response = f"Error: {str(e)}"
+        finally:
+            cursor.close()
+            
             
     elif command == 'display ns databases':
         try:
