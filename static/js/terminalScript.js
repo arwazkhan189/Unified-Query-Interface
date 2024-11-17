@@ -44,10 +44,14 @@ function sendCommandToServer(command) {
     // Open the PDF directly in a new window
     window.open('/static/docs.pdf', '_blank');
     return; // Prevent further handling of the command
-  }else if (command === 'exit') {
+  } else if (command === 'exit') {
     // Close the window when 'exit' is typed
     window.close();
     return; // Prevent further handling of the command
+  } else if (command === 'animate') {
+    // Show the GIF without calling the server
+    displayGif();
+    return;
   }
 
   fetch('/command', {
@@ -87,3 +91,18 @@ function sendCommandToServer(command) {
     });
 }
 
+
+function displayGif() {
+  const gifDiv = document.createElement('div');
+  gifDiv.classList.add('gif-container');
+  gifDiv.innerHTML = `
+    <img src="static/images/animation.webp" alt="Loading Animation" class="gif-animation">
+  `;
+
+  outputDiv.appendChild(gifDiv);
+
+  // Automatically remove the GIF after it completes
+  setTimeout(() => {
+    gifDiv.remove();
+  }, 5000); // Adjust this duration based on your GIF length
+}

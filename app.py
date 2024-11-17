@@ -28,7 +28,7 @@ def handle_command():
     
     # Process command
     if command == 'help':
-        response = "Available commands: help, docs, clear, hello, exit"
+        response = "Available commands: help, docs, clear, hello, exit, animate"
     elif command == 'hello':
         response = "Hello! 😊"
     elif command == 'clear':

@@ -1,9 +1,14 @@
 body {
-    background-color: rgba(30, 30, 30, 0.9); /* Semi-transparent background color */
-    background-image: url('../images/bg.jpg'); /* Add your background image here */
-    background-size: cover; /* Ensure the image covers the entire background */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-color: rgba(30, 30, 30, 0.9);
+    /* Semi-transparent background color */
+    background-image: url('../images/bg.jpg');
+    /* Add your background image here */
+    background-size: cover;
+    /* Ensure the image covers the entire background */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Prevent image from repeating */
     color: #00ff00;
     font-family: monospace;
     margin: 0;
@@ -15,7 +20,8 @@ body {
 }
 
 .terminal {
-    background-color: rgba(16, 16, 16, 0.9); /* Semi-transparent black background for the terminal */
+    background-color: rgba(16, 16, 16, 0.9);
+    /* Semi-transparent black background for the terminal */
     width: 80%;
     max-width: 800px;
     height: 70vh;
@@ -101,8 +107,29 @@ body {
 }
 
 .output-image {
-    width: 100%;       /* Makes the image responsive */
-    max-width: 800px;  /* Sets a maximum width */
-    height: 150px ;     /* Maintains the aspect ratio */
-    border-radius: 8px; /* Optional: Rounded corners */
+    width: 100%;
+    /* Makes the image responsive */
+    max-width: 800px;
+    /* Sets a maximum width */
+    height: 150px;
+    /* Maintains the aspect ratio */
+    border-radius: 8px;
+    /* Optional: Rounded corners */
+}
+
+
+/* GIF container */
+.gif-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* GIF animation styling */
+.gif-animation {
+    max-width: 200px;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
 }
