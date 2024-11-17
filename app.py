@@ -49,38 +49,40 @@ def handle_command():
             
             
     elif command.startswith('make ns database'):
-        try:
-            # Extract the database and collection names
-            parts = command.split(' ')
-            if len(parts) < 4:
-                response = "Error: Database and collection names are required. Usage: make ns database <db_name> <collection_name>"
-            else:
-                db_name = parts[3]
-                collection_name = parts[4] if len(parts) > 4 else None
-
-                # Create the database and collection in MongoDB
-                db = mongo_client[db_name]
-                if collection_name:
-                    db.create_collection(collection_name)
-                    response = f"Database '{db_name}' and collection '{collection_name}' created successfully."
+        parts = command.split(' ')
+        if len(parts) < 4:
+            response = "Error: Database and collection names are required. Usage: make ns database <db_name> <collection_name>"
+        else:
+            db_name = parts[3]
+            collection_name = parts[4] if len(parts) > 4 else None
+    
+            try:
+                # Check if the database already exists
+                existing_databases = mongo_client.list_database_names()
+                if db_name in existing_databases:
+                    db = mongo_client[db_name]
+                    if collection_name:
+                        # Check if the collection already exists
+                        existing_collections = db.list_collection_names()
+                        if collection_name in existing_collections:
+                            response = f"Error: Collection '{collection_name}' already exists in database '{db_name}'."
+                        else:
+                            db.create_collection(collection_name)
+                            response = f"Collection '{collection_name}' created successfully in existing database '{db_name}'."
+                    else:
+                        response = f"Error: Database '{db_name}' already exists. No collection specified to create."
                 else:
-                    # MongoDB creates the database lazily, so we can create a dummy collection
-                    db["default_collection"].insert_one({"init": "placeholder"})
-                    response = f"Database '{db_name}' created successfully."
-        except Exception as e:
-            response = f"Error: {str(e)}"
+                    # Database does not exist; create it
+                    db = mongo_client[db_name]
+                    if collection_name:
+                        db.create_collection(collection_name)
+                        response = f"Database '{db_name}' and collection '{collection_name}' created successfully."
+                    else:
+                        db["default_collection"].insert_one({"init": "placeholder"})  # Trigger database creation
+                        response = f"Database '{db_name}' created successfully."
+            except Exception as e:
+                response = f"Error in MongoDB operation: {str(e)}"
 
-    elif command == 'display databases':
-        try:
-            # Connect to MySQL and show all databases
-            cursor = mysql.connection.cursor()
-            cursor.execute("SHOW DATABASES")
-            databases = cursor.fetchall()
-            response = "Databases:\n" + "\n".join([db[0] for db in databases])
-        except Exception as e:
-            response = f"Error: {str(e)}"
-        finally:
-            cursor.close()
             
     elif command == 'display ns databases':
         try:
