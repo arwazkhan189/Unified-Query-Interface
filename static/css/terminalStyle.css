@@ -121,9 +121,10 @@ body {
 /* GIF container */
 .gif-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
     margin-top: 10px;
+    margin-left: 50px;
 }
 
 /* GIF animation styling */
